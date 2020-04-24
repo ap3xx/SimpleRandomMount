@@ -1,9 +1,10 @@
-local SimpleRandomMount = LibStub("AceAddon-3.0"):NewAddon("SimpleRandomMount")
 local group = {}
-SLASH_SimpleRandomMount1 = "/srm"
-SLASH_SimpleRandomMount2 = "/simplerandommount"
+SLASH_SRM1 = "/srm"
+SLASH_SRM2 = "/simplerandommount"
 
-SimpleRandomMount.flying = {
+SRM = CreateFrame('Frame')
+
+SRM.flying = {
 	"Abyss Worm",
 	"Aerial Unit R-21/X",
 	"Alabaster Stormtalon",
@@ -253,7 +254,7 @@ SimpleRandomMount.flying = {
 	"Yu'lei, Daughter of Jade"
 }
 
-SimpleRandomMount.ground = {
+SRM.ground = {
 	"Acherus Deathcharger",
 	"Acid Belcher",
 	"Admiralty Stallion",
@@ -686,7 +687,7 @@ SimpleRandomMount.ground = {
 	"Zandalari Direhorn"
 }
 
-SimpleRandomMount.aquatic = {
+SRM.aquatic = {
 	"Brinedeep Bottom-Feeder",
 	"Crimson Tidestallion",
 	"Darkwater Skate",
@@ -703,19 +704,7 @@ SimpleRandomMount.aquatic = {
 	"Vashj'ir Seahorse"
 }
 
-function SlashCmdList.SimpleRandomMount(msg, editbox)
-	if msg == "aquatic" then
-		SimpleRandomMount:Mount(SimpleRandomMount.aquatic, table.getn(SimpleRandomMount.aquatic))
-	elseif msg == "ground" then
-		SimpleRandomMount:Mount(SimpleRandomMount.ground, table.getn(SimpleRandomMount.ground))
-	elseif msg == "flying" then
-		SimpleRandomMount:Mount(SimpleRandomMount.flying, table.getn(SimpleRandomMount.flying))
-	else
-		print("Command not found!")
-	end
-end
-
-function SimpleRandomMount:Mount(mounts, number)
+function SRM:Mount(mounts, number)
 	local rand
 	local usable = false
 	for i = 1, number do
@@ -733,3 +722,28 @@ function SimpleRandomMount:Mount(mounts, number)
 		CastSpellByName("Summon Chauffeur")
 	end
 end
+
+function SlashCmdList.SRM(msg, editbox)
+	if msg == "aquatic" then
+		SRM:Mount(SRM.aquatic, table.getn(SRM.aquatic))
+	elseif msg == "ground" then
+		SRM:Mount(SRM.ground, table.getn(SRM.ground))
+	elseif msg == "flying" then
+		SRM:Mount(SRM.flying, table.getn(SRM.flying))
+	else
+		DEFAULT_CHAT_FRAME:AddMessage("SimpleRandomMount: Command not found!",1,0,0)
+	end
+end
+
+SRM:SetScript("OnEvent", function()
+	if MacrosCreated == nil then
+		DEFAULT_CHAT_FRAME:AddMessage("First time loading AddOn for this account, creating macros...",0,170/255,1)
+		CreateMacro("SRMGround", "ability_mount_bigblizzardbear", "/srm ground", nil)
+		CreateMacro("SRMFlying", "ability_mount_gyrocoptor", "/srm flying", nil)
+		CreateMacro("SRMAquatic", "inv_babyturtle2", "/srm aquatic", nil)
+		DEFAULT_CHAT_FRAME:AddMessage("Macros created!",0,170/255,1)
+		MacrosCreated = 1
+	end
+	DEFAULT_CHAT_FRAME:AddMessage("SimpleRandomMount succesfully loadded!",0,170/255,1)
+end)
+SRM:RegisterEvent("PLAYER_ENTERING_WORLD")
