@@ -1,7 +1,7 @@
 ## Interface: 80300
 ## Title: Simple Random Mount
 ## Notes: Randomize mount for aquatic, ground and flying.
+## SavedVariables: MacrosCreated
 ## Author: ap3x
-## Version: 1.0
-embeds.xml
+## Version: 0.1
 SimpleRandomMount.lua
