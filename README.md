@@ -1,6 +1,6 @@
 # SimpleRandomMount
 
-A simple a addon that randomizes mounts for aquatic, flying and ground.
+A simple addon that randomizes mounts for aquatic, flying and ground mount types.
 
 # How to install it?
 
