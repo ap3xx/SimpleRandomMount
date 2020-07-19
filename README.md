@@ -8,7 +8,7 @@ Just copy all the content here to `<WOW_FOLDER>/__retail__/Interface/AddOns/Simp
 
 # How to use it?
 
-The addon will self create 3 addons, one for each mount type. Just push it to your action bar.
+The addon will self create 3 macros, one for each mount type. Just push it to your action bar.
 
 # Author
 
